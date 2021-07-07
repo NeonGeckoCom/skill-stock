@@ -128,7 +128,8 @@ class StockSkill(NeonSkill):
             self.speak_dialog("api.error", data={'error': str(e)})
         except Exception as e:
             self.log.exception(e)
-            self.speak_dialog("not.found", data={'company': company})
+            if self.voc_match(message.data["utterance"], "StockPriceKeyword"):
+                self.speak_dialog("not.found", data={'company': company})
 
     def search_company(self, company: str) -> dict:
         """

@@ -54,8 +54,7 @@ class StockSkill(NeonSkill):
                              "google": "goog",
                              "exxonmobil": "xom"}
 
-        self.service = self.settings['service']
-
+        self.service = self.settings.get('service') or "Alpha Vantage"
         self.api_key = self.settings.get('api_keys', {}).get(self.service) or self.settings.get("api_key")
 
         if self.service == "Financial Modeling Prep" and not self.api_key:

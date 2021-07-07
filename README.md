@@ -6,70 +6,19 @@ This skill provides stock values.
 
 ## Requirements
 
-No special required packages for this skill.
+Use of this skill requires use of third-party APIs. If you do not have access to Neon API servers, you may access the
+Alpha Vantage API directly by providing a key in `~/alpha_vantage.txt`. You can generate an Alpha Vantage key
+[here](https://www.alphavantage.co/support/#api-key)
 
 ## Description
 
-Use this skill to lookup stock prices
+Use this skill to lookup stock prices.
 
 
 ## Examples
 
 * what is * trading at
 * what is the stock price for *
-
-## Location
-
-    ${skills}/stock.neon
-
-## Files
-
-    stock.neon/requirements.txt
-    stock.neon/__pycache__
-    stock.neon/__pycache__/__init__.cpython-36.pyc
-    stock.neon/vocab
-    stock.neon/vocab/en-us
-    stock.neon/vocab/en-us/company.entity
-    stock.neon/vocab/en-us/StockPrice.intent
-    stock.neon/README.md
-    stock.neon/regex
-    stock.neon/regex/en-us
-    stock.neon/regex/en-us/company.rx
-    stock.neon/__init__.py
-    stock.neon/test
-    stock.neon/test/intent
-    stock.neon/test/intent/stock.price2.intent.json
-    stock.neon/test/intent/stock.price1.intent.json
-    stock.neon/dialog
-    stock.neon/dialog/en-us
-    stock.neon/dialog/en-us/stock.price.dialog
-    stock.neon/dialog/en-us/not.found.dialog
-    stock.neon/settings.json
-    stock.neon/LICENSE
-
-
-  
-
-## Class Diagram
-
-[Click Here](https://0000.us/klatchat/app/files/neon_images/class_diagrams/translation.png)
-
-## Available Intents
-<details>
-<summary>Show list</summary>
-<br>
-
-### company.entity  
-    ... 
-      
-### StockPrice.intent  
-    what is the stock price for {company}
-    what is the stock price of {company}
-    what is the share price for {company}
-    what is the share price of {company}
-    what is {company} trading at
-
-</details>  
 
 ## Details
 

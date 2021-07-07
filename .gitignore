@@ -1,3 +1,8 @@
+*.yml
+!settingsmeta.yml
+*.lock
+.idea/
+.msm
 *.pyc
-settings.json
-mycroft
+__pycache__/
+!.github/*

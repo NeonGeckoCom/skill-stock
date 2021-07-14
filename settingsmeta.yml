@@ -1,0 +1,13 @@
+skillMetadata:
+  sections:
+    - name: Stock Data Source
+      fields:
+        - name: service
+          type: select
+          label: Service
+          options: Alpha Vantage|Alpha Vantage;Financial Modeling Prep|Financial Modeling Prep
+          value: "Alpha Vantage"
+        - name: api_key
+          type: text
+          label: Service API Key
+          value:

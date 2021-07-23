@@ -1,0 +1,6 @@
+(what is|tell me) stock price {company}
+(what is|tell me) share price {company}
+(what is|tell me) trading price {company}
+{company} stock price
+{company} share price
+{company} trading at

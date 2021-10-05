@@ -27,9 +27,9 @@
         "arm64",
         "arm"
     ],
-    "branch": "dev",
+    "branch": "master",
     "license": "NeonAI License v1.0",
-    "icon": "https://0000.us/klatchat/app/files/neon_images/icons/neon_skill.png",
+    "icon": "https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/money-check-alt.svg",
     "category": "Information",
     "categories": [
         "Information",
@@ -42,6 +42,6 @@
         "finance"
     ],
     "skillname": "Stock",
-    "authorname": "Neon",
+    "authorname": "NeonGeckoCom",
     "foldername": null
 }

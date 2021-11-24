@@ -36,11 +36,9 @@ Alpha Vantage API directly by providing a key in `~/alpha_vantage.txt`. You can 
 Use the [link](https://neongecko.com/ContactUs) or [submit an issue on GitHub](https://help.github.com/en/articles/creating-an-issue)
 
 ## Credits
-
-@NeonGeckoCom
-@MycroftAI
-@NeonDaniel
-@reginaneon
+[Mycroft AI](https://github.com/MycroftAI)
+[NeonDaniel](https://github.com/NeonDaniel)
+[reginaneon](https://github.com/reginaneon)
 
 ## Category
 **Information**

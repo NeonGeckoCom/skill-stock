@@ -28,7 +28,7 @@
         "arm"
     ],
     "branch": "master",
-    "license": "NeonAI License v1.0",
+    "license": "BSD-3-Clause",
     "icon": "https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/money-check-alt.svg",
     "category": "Information",
     "categories": [
@@ -40,6 +40,11 @@
         "NeonAI",
         "stock",
         "finance"
+    ],
+    "credits": [
+        "Mycroft AI",
+        "NeonDaniel",
+        "reginaneon"
     ],
     "skillname": "Stock",
     "authorname": "NeonGeckoCom",

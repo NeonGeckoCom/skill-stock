@@ -14,7 +14,7 @@
     "requirements": {
         "python": [
             "requests>=2.13.0",
-            "git+https://github.com/neongeckocom/neon-skill-utils"
+            "neon-utils~=0.7"
         ],
         "system": {},
         "skill": []

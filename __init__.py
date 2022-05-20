@@ -26,8 +26,6 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import requests
-
 from neon_utils.skills.neon_skill import NeonSkill, LOG
 from neon_api_proxy.client import alpha_vantage
 
@@ -117,8 +115,6 @@ class StockSkill(NeonSkill):
                     self.gui["text"] = f"${quote}"
                     self.gui.show_page("Stock.qml")
                     self.clear_gui_timeout()
-        except requests.HTTPError as e:
-            self.speak_dialog("api.error", data={'error': str(e)})
         except Exception as e:
             LOG.exception(e)
             self.speak_dialog("not.found", data={'company': company})
@@ -134,6 +130,7 @@ class StockSkill(NeonSkill):
             kwargs["api_key"] = self.api_key
         stocks = self.data_source.search_stock_by_name(company, **kwargs)
         LOG.debug(f"stocks={stocks}")
+        # TODO: Catch and warn on API error here
         return stocks[0]
 
     def _get_stock_price(self, symbol: str):
@@ -146,6 +143,7 @@ class StockSkill(NeonSkill):
         if self.api_key:
             kwargs["api_key"] = self.api_key
         stock_data = self.data_source.get_stock_quote(symbol)
+        # TODO: Catch and warn on API error here
         if not stock_data.get("price"):
             return None
         return str(round(float(stock_data.get("price")), 2))

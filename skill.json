@@ -13,8 +13,8 @@
     "systemDeps": false,
     "requirements": {
         "python": [
-            "requests>=2.13.0",
-            "neon-utils~=0.7"
+            "neon-utils~=0.7",
+            "neon_api_proxy~=0.3"
         ],
         "system": {},
         "skill": []

@@ -1,9 +1,0 @@
-{
-  "utterance": "what price is microsoft trading at",
-  "intent_type": "handle_stock_price_intent",
-  "intent": {
-    "Company": "microsoft",
-    "StockPriceKeyword": "trading at"
-  },
-  "expected_dialog": "stock.price"
-}

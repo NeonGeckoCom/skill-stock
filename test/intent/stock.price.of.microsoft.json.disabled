@@ -1,9 +1,0 @@
-{
-  "utterance": "what is the stock price of microsoft",
-  "intent_type": "handle_stock_price_intent",
-  "intent": {
-      "StockPriceKeyword": "stock price",
-      "Company": "microsoft"
-  },
-  "expected_dialog": "stock.price"
-}

@@ -28,13 +28,11 @@
 
 import unittest
 
-from copy import deepcopy
 from os import mkdir
 from os.path import dirname, join, exists
 from mock import Mock
 from ovos_utils.messagebus import FakeBus
 from mycroft_bus_client import Message
-from neon_utils.configuration_utils import get_neon_local_config, get_neon_user_config
 from mycroft.skills.skill_loader import SkillLoader
 
 
@@ -53,8 +51,6 @@ class TestSkill(unittest.TestCase):
             mkdir(cls.test_fs)
 
         # Override the configuration and fs paths to use the test directory
-        cls.skill._local_config = get_neon_local_config(cls.test_fs)
-        cls.skill._user_config = get_neon_user_config(cls.test_fs)
         cls.skill.settings_write_path = cls.test_fs
         cls.skill.file_system.path = cls.test_fs
         cls.skill._init_settings()

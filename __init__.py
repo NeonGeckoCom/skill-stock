@@ -114,7 +114,6 @@ class StockSkill(NeonSkill):
                     self.gui["title"] = company
                     self.gui["text"] = f"${quote}"
                     self.gui.show_page("Stock.qml")
-                    self.clear_gui_timeout()
         except Exception as e:
             LOG.exception(e)
             self.speak_dialog("not.found", data={'company': company})

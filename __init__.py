@@ -28,8 +28,8 @@
 
 from neon_utils.skills.neon_skill import NeonSkill, LOG
 from neon_api_proxy.client import alpha_vantage
-
-from mycroft.skills import intent_file_handler
+from adapt.intent import IntentBuilder
+from mycroft.skills import intent_handler
 
 
 class StockSkill(NeonSkill):
@@ -62,12 +62,13 @@ class StockSkill(NeonSkill):
     def data_source(self):
         return alpha_vantage
 
-    @intent_file_handler("StockPrice.intent")
+    @intent_handler(IntentBuilder("StockPrice").require("share_price")
+                    .require("Company"))
     def handle_stock_price(self, message):
         """
         Handle a query for stock value
         """
-        company = message.data.get("company").lower()
+        company = message.data.get("Company").lower().strip()
         LOG.debug(company)
 
         # TODO: Generalize parsing for language support

@@ -56,6 +56,18 @@ class TestSkill(unittest.TestCase):
         cls.skill._init_settings()
         cls.skill.initialize()
 
+        # Override MQ config to use test endpoint
+        cls.skill.config_core["MQ"] = {
+            "server": "mq.2022.us",
+            "port": 25672,
+            "users": {
+                "mq_handler": {
+                    "user": "neon_api_utils",
+                    "password": "Klatchat2021"
+                }
+            }
+        }
+
         # Override speak and speak_dialog to test passed arguments
         cls.skill.speak = Mock()
         cls.skill.speak_dialog = Mock()

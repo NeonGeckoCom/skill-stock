@@ -12,24 +12,8 @@ Alpha Vantage API directly by providing a key in `~/alpha_vantage.txt`. You can 
 
 ## Examples
 
-* what is * trading at
-* what is the stock price for *
-
-## Details
-
-### Text
-
-        what is the stock price for Microsoft
-        >> Microsoft Corp, with ticker symbol MSFT is currently trading at 125.44 dollars per share. 
-
-        what is Sonos trading at
-        >> Sonos Inc, with ticker symbol SONO is currently trading at 11.25 dollars per share.
-
-### Picture
-
-### Video
-
-  
+* What is Amazon trading at?
+* What is the stock price for Microsoft?
 
 ## Contact Support
 

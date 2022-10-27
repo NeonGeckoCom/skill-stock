@@ -56,6 +56,18 @@ class TestSkill(unittest.TestCase):
         cls.skill._init_settings()
         cls.skill.initialize()
 
+        # Override MQ config to use test endpoint
+        cls.skill.config_core["MQ"] = {
+            "server": "mq.2022.us",
+            "port": 25672,
+            "users": {
+                "mq_handler": {
+                    "user": "neon_api_utils",
+                    "password": "Klatchat2021"
+                }
+            }
+        }
+
         # Override speak and speak_dialog to test passed arguments
         cls.skill.speak = Mock()
         cls.skill.speak_dialog = Mock()
@@ -76,7 +88,7 @@ class TestSkill(unittest.TestCase):
                                 "get_stock_quote"))
 
     def test_handle_stock_price(self):
-        message = Message("test", {"company": "3m"})
+        message = Message("test", {"Company": "3m"})
         self.skill.handle_stock_price(message)
         self.skill.speak_dialog.assert_called_once()
         args = self.skill.speak_dialog.call_args
@@ -88,7 +100,7 @@ class TestSkill(unittest.TestCase):
         self.assertEqual(data["provider"], "Alpha Vantage")
         self.assertIsInstance(args[1]["data"], dict)
 
-        message = Message("test", {"company": "microsoft"})
+        message = Message("test", {"Company": "microsoft"})
         self.skill.handle_stock_price(message)
         args = self.skill.speak_dialog.call_args
         self.assertEqual(args[0][0], "stock.price")

@@ -121,7 +121,7 @@ class StockSkill(CommonQuerySkill):
 
     def CQS_match_query_phrase(self, phrase, message):
         confidence = CQSMatchLevel.GENERAL
-        if self.voc_match(phrase, "share_price"):
+        if self.voc_match(phrase, "stock"):
             LOG.debug(f"Found 'stock' keyword")
             confidence = CQSMatchLevel.EXACT
         match_data = self._search_company(phrase)

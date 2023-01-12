@@ -12,7 +12,7 @@ Alpha Vantage API directly by providing a key in `~/alpha_vantage.txt`. You can 
 
 ## Examples
 
-* What is Amazon trading at?
+* What is the share price for Amazon?
 * What is the stock price for Microsoft?
 
 ## Contact Support

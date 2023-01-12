@@ -26,13 +26,14 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from neon_utils.skills.neon_skill import NeonSkill, LOG
+from neon_utils.skills.common_query_skill import CommonQuerySkill, CQSMatchLevel
 from neon_api_proxy.client import alpha_vantage
 from adapt.intent import IntentBuilder
 from mycroft.skills import intent_handler
+from ovos_utils.log import LOG
 
 
-class StockSkill(NeonSkill):
+class StockSkill(CommonQuerySkill):
     def __init__(self):
         super(StockSkill, self).__init__("StockSkill")
         self.preferred_market = "United States"
@@ -117,6 +118,36 @@ class StockSkill(NeonSkill):
         except Exception as e:
             LOG.exception(e)
             self.speak_dialog("not.found", data={'company': company})
+
+    def CQS_match_query_phrase(self, phrase, message):
+        if not self.voc_match(phrase, "share_price"):
+            LOG.debug(f"No 'stock' keyword")
+            return None
+        match_data = self._search_company(phrase)
+        company = match_data.get("name")
+        symbol = match_data.get("symbol")
+        LOG.debug(f"found {company} with symbol {symbol}")
+        if symbol:
+            quote = self._get_stock_price(symbol)
+        else:
+            LOG.debug(f"No company matched")
+            return None
+        if not quote:
+            LOG.debug(f"No quote for: {symbol}")
+            return None
+        response = {'symbol': symbol,
+                    'company': company,
+                    'price': quote,
+                    'provider': self.service}
+        to_speak = self.dialog_renderer.render("stock.price", data=response)
+        gui_data = {"title": company,
+                    "text": f"${quote}"}
+        return phrase, CQSMatchLevel.EXACT, to_speak, {'gui': gui_data}
+
+    def CQS_action(self, phrase, data):
+        self.gui["title"] = data['gui'].get('title')
+        self.gui['text'] = data['gui'].get('text')
+        self.gui.show_page("Stock.qml")
 
     def _search_company(self, company: str) -> dict:
         """

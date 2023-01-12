@@ -97,6 +97,9 @@ class StockSkill(CommonQuerySkill):
                 LOG.debug(company)
 
             match_data = self._search_company(company)
+            if not match_data:
+                self.speak_dialog("not.found", data={'company': company})
+                return
             company = match_data.get("name")
             symbol = match_data.get("symbol")
             LOG.debug(f"found {company} with symbol {symbol}")
@@ -104,17 +107,19 @@ class StockSkill(CommonQuerySkill):
                 quote = self._get_stock_price(symbol)
             else:
                 quote = None
+
             if not all([symbol, company, quote]):
                 self.speak_dialog("not.found", data={'company': company})
-            else:
-                response = {'symbol': symbol,
-                            'company': company,
-                            'price': quote,
-                            'provider': self.service}
-                self.speak_dialog("stock.price", data=response)
-                self.gui["title"] = company
-                self.gui["text"] = f"${quote}"
-                self.gui.show_page("Stock.qml")
+                return
+
+            response = {'symbol': symbol,
+                        'company': company,
+                        'price': quote,
+                        'provider': self.service}
+            self.speak_dialog("stock.price", data=response)
+            self.gui["title"] = company
+            self.gui["text"] = f"${quote}"
+            self.gui.show_page("Stock.qml")
         except Exception as e:
             LOG.exception(e)
             self.speak_dialog("not.found", data={'company': company})
@@ -162,7 +167,7 @@ class StockSkill(CommonQuerySkill):
         stocks = self.data_source.search_stock_by_name(company, **kwargs)
         LOG.debug(f"stocks={stocks}")
         # TODO: Catch and warn on API error here
-        return stocks[0]
+        return stocks[0] if stocks else None
 
     def _get_stock_price(self, symbol: str):
         """

@@ -120,9 +120,10 @@ class StockSkill(CommonQuerySkill):
             self.speak_dialog("not.found", data={'company': company})
 
     def CQS_match_query_phrase(self, phrase, message):
-        if not self.voc_match(phrase, "share_price"):
-            LOG.debug(f"No 'stock' keyword")
-            return None
+        confidence = CQSMatchLevel.GENERAL
+        if self.voc_match(phrase, "share_price"):
+            LOG.debug(f"Found 'stock' keyword")
+            confidence = CQSMatchLevel.EXACT
         match_data = self._search_company(phrase)
         company = match_data.get("name")
         symbol = match_data.get("symbol")
@@ -142,7 +143,7 @@ class StockSkill(CommonQuerySkill):
         to_speak = self.dialog_renderer.render("stock.price", data=response)
         gui_data = {"title": company,
                     "text": f"${quote}"}
-        return phrase, CQSMatchLevel.EXACT, to_speak, {'gui': gui_data}
+        return phrase, confidence, to_speak, {'gui': gui_data}
 
     def CQS_action(self, phrase, data):
         self.gui["title"] = data['gui'].get('title')

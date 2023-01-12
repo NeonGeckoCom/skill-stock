@@ -63,7 +63,7 @@ class StockSkill(CommonQuerySkill):
     def data_source(self):
         return alpha_vantage
 
-    @intent_handler(IntentBuilder("StockPrice").require("share_price")
+    @intent_handler(IntentBuilder("StockPrice").require("stock")
                     .require("Company"))
     def handle_stock_price(self, message):
         """

@@ -1,0 +1,43 @@
+# Specify intents to test here. Valid test cases are as follows:
+
+# Basic intent match tests only:
+#lang:
+#  intent_name:
+#    - example utterance
+#    - other example utterance
+
+# Intent tests with expected vocab/entity matches:
+#lang:
+#  intent_name:
+#    - example_utterance:
+#        - expected vocab name
+#        - other expected vocab name
+
+# Intent tests with specific vocab/entity extraction tests:
+#lang:
+#  intent_name:
+#    - example_utterance:
+#        - expected_vocab_key: expected_vocab_value
+#        - expected_entity_key: expected_entity_value
+
+
+en-us:
+  stock_price.intent:
+    - what is amazon trading at:
+        - company: amazon
+    - i want to know the share price for microsoft:
+        - company: microsoft
+    - tell me what tesla is trading at:
+        - company: tesla
+    - what is alphabet share price:
+        - company: alphabet
+
+unmatched intents:
+  config:
+    include_med: False
+  en-us:
+    - tell me about trading
+    - what is a stock
+    - what is bitcoin
+    - what is company stock
+    - what is stock

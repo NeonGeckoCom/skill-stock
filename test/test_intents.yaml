@@ -29,6 +29,8 @@ en-us:
         - company: microsoft
     - tell me what tesla is trading at:
         - company: tesla
+    - what is alphabet share price:
+        - company: alphabet
 
 unmatched intents:
   en-us:

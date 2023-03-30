@@ -88,19 +88,19 @@ class TestSkill(unittest.TestCase):
                                 "get_stock_quote"))
 
     def test_handle_stock_price(self):
-        message = Message("test", {"Company": "3m"})
+        message = Message("test", {"company": "3m"})
         self.skill.handle_stock_price(message)
         self.skill.speak_dialog.assert_called_once()
         args = self.skill.speak_dialog.call_args
         self.assertEqual(args[0][0], "stock.price")
         data = args[1]["data"]
         self.assertEqual(data["symbol"], "MMM")
-        self.assertEqual(data["company"], "3M Company")
+        self.assertEqual(data["company"], "3M company")
         self.assertIsInstance(float(data["price"]), float)
         self.assertEqual(data["provider"], "Alpha Vantage")
         self.assertIsInstance(args[1]["data"], dict)
 
-        message = Message("test", {"Company": "microsoft"})
+        message = Message("test", {"company": "microsoft"})
         self.skill.handle_stock_price(message)
         args = self.skill.speak_dialog.call_args
         self.assertEqual(args[0][0], "stock.price")

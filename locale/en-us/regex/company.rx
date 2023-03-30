@@ -1,1 +1,2 @@
 (of|for) (?P<Company>.*)
+(?P<Company>.*) (stock|share|trading).*

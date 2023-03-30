@@ -28,9 +28,14 @@
 
 import unittest
 
-from os import mkdir
+from os import mkdir, getenv
 from os.path import dirname, join, exists
+
+import yaml
 from mock import Mock
+from mock.mock import patch
+from ovos_plugin_manager.skills import load_skill_plugins
+from ovos_utils.log import LOG
 from ovos_utils.messagebus import FakeBus
 from mycroft_bus_client import Message
 from mycroft.skills.skill_loader import SkillLoader

@@ -95,7 +95,7 @@ class TestSkill(unittest.TestCase):
         self.assertEqual(args[0][0], "stock.price")
         data = args[1]["data"]
         self.assertEqual(data["symbol"], "MMM")
-        self.assertEqual(data["company"], "3M company")
+        self.assertEqual(data["company"], "3M Company")
         self.assertIsInstance(float(data["price"]), float)
         self.assertEqual(data["provider"], "Alpha Vantage")
         self.assertIsInstance(args[1]["data"], dict)

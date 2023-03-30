@@ -33,9 +33,11 @@ en-us:
         - company: alphabet
 
 unmatched intents:
+  config:
+    include_med: False
   en-us:
-    - what is bitcoin
     - tell me about trading
     - what is a stock
+    - what is bitcoin
     - what is company stock
     - what is stock

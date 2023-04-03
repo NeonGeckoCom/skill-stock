@@ -28,12 +28,11 @@
 
 from neon_utils.skills.neon_skill import NeonSkill
 from neon_api_proxy.client import alpha_vantage
-from adapt.intent import IntentBuilder
 from ovos_utils import classproperty
 from ovos_utils.log import LOG
 from ovos_utils.process_utils import RuntimeRequirements
 
-from mycroft.skills import intent_handler
+from mycroft.skills import intent_file_handler
 
 
 class StockSkill(NeonSkill):
@@ -78,28 +77,13 @@ class StockSkill(NeonSkill):
     def data_source(self):
         return alpha_vantage
 
-    @intent_handler(IntentBuilder("StockPrice").require("share_price")
-                    .require("Company"))
+    @intent_file_handler("stock_price.intent")
     def handle_stock_price(self, message):
         """
         Handle a query for stock value
         """
-        company = message.data.get("Company").lower().strip()
+        company = message.data.get("company").lower().strip()
         LOG.debug(company)
-
-        # TODO: Generalize parsing for language support
-        # Filter out articles from company name
-        if str(company).split()[0] in ["of", "for", "what"]:
-            LOG.warning('fixing string')
-            company = " ".join(str(company).split()[1:])
-            if company.split()[0] == "is":
-                LOG.warning('fixing string is')
-                company = " ".join(str(company).split()[1:])
-            LOG.debug(company)
-        # Filter out "stock" keyword from company name
-        if company and company.strip().endswith(" stock"):
-            LOG.warning("Stripping 'stock' from company name")
-            company = company.strip().rstrip(" stock")
 
         try:
             # # Special case handling for 3m

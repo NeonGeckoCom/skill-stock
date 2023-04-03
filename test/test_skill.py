@@ -28,9 +28,14 @@
 
 import unittest
 
-from os import mkdir
+from os import mkdir, getenv
 from os.path import dirname, join, exists
+
+import yaml
 from mock import Mock
+from mock.mock import patch
+from ovos_plugin_manager.skills import load_skill_plugins
+from ovos_utils.log import LOG
 from ovos_utils.messagebus import FakeBus
 from mycroft_bus_client import Message
 from mycroft.skills.skill_loader import SkillLoader
@@ -88,7 +93,7 @@ class TestSkill(unittest.TestCase):
                                 "get_stock_quote"))
 
     def test_handle_stock_price(self):
-        message = Message("test", {"Company": "3m"})
+        message = Message("test", {"company": "3m"})
         self.skill.handle_stock_price(message)
         self.skill.speak_dialog.assert_called_once()
         args = self.skill.speak_dialog.call_args
@@ -100,7 +105,7 @@ class TestSkill(unittest.TestCase):
         self.assertEqual(data["provider"], "Alpha Vantage")
         self.assertIsInstance(args[1]["data"], dict)
 
-        message = Message("test", {"Company": "microsoft"})
+        message = Message("test", {"company": "microsoft"})
         self.skill.handle_stock_price(message)
         args = self.skill.speak_dialog.call_args
         self.assertEqual(args[0][0], "stock.price")

@@ -35,8 +35,9 @@ en-us:
 unmatched intents:
   en-us:
     - tell me about trading
-#    - what is a stock
     - what is bitcoin
-#    - what is company stock
     - what is stock
     - what is the distance to the moon
+# TODO: Below should not match, but do
+#    - what is a stock
+    - what is company stock

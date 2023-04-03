@@ -39,5 +39,4 @@ unmatched intents:
     - what is stock
     - what is the distance to the moon
     - what is company stock
-# TODO: Below should not match, but does
     - what is a stock

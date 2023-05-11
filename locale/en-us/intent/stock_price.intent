@@ -1,4 +1,4 @@
-(what is|tell me|i want to know) (the |)(share|stock|trade|trading) (price|value) for {company}
+(what is|tell me|i want to know) (the |)(share|stock|trade|trading) (price|value) (of|for) {company}
 (tell me|i want to know) what {company} is trading at
 what is {company} trading at
 what is {company} (stock|share|trade) price

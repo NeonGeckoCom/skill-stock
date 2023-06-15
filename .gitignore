@@ -5,3 +5,6 @@
 *.pyc
 __pycache__/
 !.github/*
+build
+.pytest_cache
+*.egg-info

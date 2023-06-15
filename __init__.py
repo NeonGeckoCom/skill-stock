@@ -36,8 +36,8 @@ from mycroft.skills import intent_file_handler
 
 
 class StockSkill(NeonSkill):
-    def __init__(self):
-        super(StockSkill, self).__init__("StockSkill")
+    def __init__(self, **kwargs):
+        super(StockSkill, self).__init__(**kwargs)
         self.preferred_market = "United States"
         self.translate_co = {"3 m": "mmm",
                              "3m": "mmm",
@@ -146,7 +146,3 @@ class StockSkill(NeonSkill):
         if not stock_data.get("price"):
             return None
         return str(round(float(stock_data.get("price")), 2))
-
-
-def create_skill():
-    return StockSkill()

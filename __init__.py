@@ -26,6 +26,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from typing import Optional
 from neon_utils.skills.neon_skill import NeonSkill
 from neon_api_proxy.client import alpha_vantage
 from ovos_utils import classproperty
@@ -37,7 +38,7 @@ from mycroft.skills import intent_file_handler
 
 class StockSkill(NeonSkill):
     def __init__(self, **kwargs):
-        super(StockSkill, self).__init__(**kwargs)
+        NeonSkill.__init__(self, **kwargs)
         self.preferred_market = "United States"
         self.translate_co = {"3 m": "mmm",
                              "3m": "mmm",
@@ -96,6 +97,9 @@ class StockSkill(NeonSkill):
                 LOG.debug(company)
 
             match_data = self._search_company(company)
+            if not match_data:
+                self.speak_dialog("not.found", data={'company': company})
+                return
             company = match_data.get("name")
             symbol = match_data.get("symbol")
             LOG.debug(f"found {company} with symbol {symbol}")
@@ -118,7 +122,7 @@ class StockSkill(NeonSkill):
             LOG.exception(e)
             self.speak_dialog("not.found", data={'company': company})
 
-    def _search_company(self, company: str) -> dict:
+    def _search_company(self, company: str) -> Optional[dict]:
         """
         Find a traded company by name
         :param company: Company to search
@@ -130,7 +134,10 @@ class StockSkill(NeonSkill):
         stocks = self.data_source.search_stock_by_name(company, **kwargs)
         LOG.debug(f"stocks={stocks}")
         # TODO: Catch and warn on API error here
-        return stocks[0]
+        if stocks:
+            return stocks[0]
+        else:
+            return None
 
     def _get_stock_price(self, symbol: str):
         """

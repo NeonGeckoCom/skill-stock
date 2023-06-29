@@ -31,6 +31,8 @@ en-us:
         - company: tesla
     - what is alphabet share price:
         - company: alphabet
+    - what is the share price of apple:
+        - company: apple
 
 unmatched intents:
   en-us:

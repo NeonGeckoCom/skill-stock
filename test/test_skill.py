@@ -28,55 +28,11 @@
 
 import unittest
 
-from os import mkdir, getenv
-from os.path import dirname, join, exists
-
-import yaml
-from mock import Mock
-from mock.mock import patch
-from ovos_plugin_manager.skills import load_skill_plugins
-from ovos_utils.log import LOG
-from ovos_utils.messagebus import FakeBus
 from ovos_bus_client import Message
-from mycroft.skills.skill_loader import SkillLoader
+from neon_minerva.tests.skill_unit_test_base import SkillTestCase
 
 
-class TestSkill(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        bus = FakeBus()
-        bus.run_in_thread()
-        skill_loader = SkillLoader(bus, dirname(dirname(__file__)))
-        skill_loader.load()
-        cls.skill = skill_loader.instance
-
-        # Define a directory to use for testing
-        cls.test_fs = join(dirname(__file__), "skill_fs")
-        if not exists(cls.test_fs):
-            mkdir(cls.test_fs)
-
-        # Override the configuration and fs paths to use the test directory
-        cls.skill.settings_write_path = cls.test_fs
-        cls.skill.file_system.path = cls.test_fs
-        cls.skill._init_settings()
-        cls.skill.initialize()
-
-        # Override MQ config to use test endpoint
-        cls.skill.config_core["MQ"] = {
-            "server": "mq.2022.us",
-            "port": 25672,
-            "users": {
-                "mq_handler": {
-                    "user": "neon_api_utils",
-                    "password": "Klatchat2021"
-                }
-            }
-        }
-
-        # Override speak and speak_dialog to test passed arguments
-        cls.skill.speak = Mock()
-        cls.skill.speak_dialog = Mock()
-
+class TestSkillMethods(SkillTestCase):
     def test_00_skill_init(self):
         # Test any parameters expected to be set in init or initialize methods
         from neon_utils.skills.neon_skill import NeonSkill

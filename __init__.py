@@ -69,16 +69,16 @@ class StockSkill(NeonSkill):
         try:
             # Special case for common stocks that don't match accurately
             if company in self.translate_co:
+                LOG.info(f"{company} in {self.translate_co}")
                 company = self.translate_co[company]
-                LOG.debug(company)
 
             match_data = self._search_company(company)
             if not match_data:
                 self.speak_dialog("not.found", data={'company': company})
                 return
-            company = match_data.get("name")
-            symbol = match_data.get("symbol")
-            LOG.debug(f"found {company} with symbol {symbol}")
+            company = match_data.get("2. name")
+            symbol = match_data.get("1. symbol")
+            LOG.info(f"found {company} with symbol {symbol}")
             if symbol:
                 quote = self._get_stock_price(symbol)
             else:
@@ -107,7 +107,7 @@ class StockSkill(NeonSkill):
         kwargs = {"region": self.preferred_market,
                   "company": company}
         stocks = request_backend("/proxy/stock/symbol", kwargs)
-        LOG.debug(f"stocks={stocks}")
+        LOG.info(f"stocks={stocks}")
         if stocks:
             return stocks["bestMatches"][0]
         else:

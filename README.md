@@ -6,9 +6,9 @@ This skill provides stock values.
 
 ## Description
 
-Use this skill to lookup stock prices. Use of this skill requires use of third-party APIs. If you do not have access to Neon API servers, you may access the
-Alpha Vantage API directly by providing a key in `~/alpha_vantage.txt`. You can generate an Alpha Vantage key
-[here](https://www.alphavantage.co/support/#api-key)
+Use this skill to lookup stock prices. Use of this skill requires use of 
+third-party APIs. This skill will use Neon AI servers by default, but you can 
+deploy your own instance of [Diana](https://github.com/NeonGeckoCom/neon-diana-utils).
 
 ## Examples
 

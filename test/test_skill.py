@@ -41,13 +41,6 @@ class TestSkillMethods(SkillTestCase):
         self.assertIsInstance(self.skill.translate_co, dict)
         self.assertIsInstance(self.skill.preferred_market, str)
 
-        self.assertIsInstance(self.skill.service, str)
-        self.assertIsNone(self.skill.api_key)
-        self.assertTrue(hasattr(self.skill.data_source,
-                                "search_stock_by_name"))
-        self.assertTrue(hasattr(self.skill.data_source,
-                                "get_stock_quote"))
-
     def test_handle_stock_price(self):
         message = Message("test", {"company": "3m"})
         self.skill.handle_stock_price(message)

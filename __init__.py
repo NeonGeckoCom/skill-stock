@@ -28,12 +28,11 @@
 
 from typing import Optional
 from neon_utils.skills.neon_skill import NeonSkill
-from neon_api_proxy.client import alpha_vantage
+from neon_utils.hana_utils import request_backend
 from ovos_utils import classproperty
 from ovos_utils.log import LOG
 from ovos_utils.process_utils import RuntimeRequirements
-
-from mycroft.skills import intent_file_handler
+from ovos_workshop.decorators import intent_handler
 
 
 class StockSkill(NeonSkill):
@@ -46,7 +45,6 @@ class StockSkill(NeonSkill):
                              "coca-cola": "ko",
                              "google": "goog",
                              "exxonmobil": "xom"}
-        self._service = None
 
     @classproperty
     def runtime_requirements(self):
@@ -60,25 +58,7 @@ class StockSkill(NeonSkill):
                                    no_network_fallback=False,
                                    no_gui_fallback=True)
 
-    @property
-    def service(self):
-        if not self._service:
-            service = self.settings.get('service') or "Alpha Vantage"
-            if service == "Financial Modeling Prep" and not self.api_key:
-                service = "Alpha Vantage"
-            self._service = service
-        return self._service
-
-    @property
-    def api_key(self):
-        return self.settings.get('api_keys', {}).get(self.service) or \
-               self.settings.get("api_key")
-
-    @property
-    def data_source(self):
-        return alpha_vantage
-
-    @intent_file_handler("stock_price.intent")
+    @intent_handler("stock_price.intent")
     def handle_stock_price(self, message):
         """
         Handle a query for stock value
@@ -87,22 +67,18 @@ class StockSkill(NeonSkill):
         LOG.debug(company)
 
         try:
-            # # Special case handling for 3m
-            # if company == 'm' and "3m" in str(message.data['utterance']).split():
-            #     company = "mmm"
-
             # Special case for common stocks that don't match accurately
             if company in self.translate_co:
+                LOG.info(f"{company} in {self.translate_co}")
                 company = self.translate_co[company]
-                LOG.debug(company)
 
             match_data = self._search_company(company)
             if not match_data:
                 self.speak_dialog("not.found", data={'company': company})
                 return
-            company = match_data.get("name")
-            symbol = match_data.get("symbol")
-            LOG.debug(f"found {company} with symbol {symbol}")
+            company = match_data.get("2. name")
+            symbol = match_data.get("1. symbol")
+            LOG.info(f"found {company} with symbol {symbol}")
             if symbol:
                 quote = self._get_stock_price(symbol)
             else:
@@ -113,7 +89,7 @@ class StockSkill(NeonSkill):
                 response = {'symbol': symbol,
                             'company': company,
                             'price': quote,
-                            'provider': self.service}
+                            'provider': "Alpha Vantage"}
                 self.speak_dialog("stock.price", data=response)
                 self.gui["title"] = company
                 self.gui["text"] = f"${quote}"
@@ -128,28 +104,28 @@ class StockSkill(NeonSkill):
         :param company: Company to search
         :return: dict company data: `symbol`, `name`, `region`, `currency`
         """
-        kwargs = {"region": self.preferred_market}
-        if self.api_key:
-            kwargs["api_key"] = self.api_key
-        stocks = self.data_source.search_stock_by_name(company, **kwargs)
-        LOG.debug(f"stocks={stocks}")
-        # TODO: Catch and warn on API error here
+        kwargs = {"region": self.preferred_market,
+                  "company": company}
+        # TODO: Remove `server_url`
+        stocks = request_backend("/proxy/stock/symbol", kwargs,
+                                 server_url="https://hana.neonaibeta.com")
+        LOG.info(f"stocks={stocks}")
         if stocks:
-            return stocks[0]
+            return stocks["bestMatches"][0]
         else:
             return None
 
-    def _get_stock_price(self, symbol: str):
+    @staticmethod
+    def _get_stock_price(symbol: str):
         """
         Get the current trade price by ticker symbol
         :param symbol: Ticker symbol to query
         :return:
         """
-        kwargs = {}
-        if self.api_key:
-            kwargs["api_key"] = self.api_key
-        stock_data = self.data_source.get_stock_quote(symbol)
-        # TODO: Catch and warn on API error here
-        if not stock_data.get("price"):
+        # TODO: Remove `server_url`
+        stock_data = request_backend("/proxy/stock/quote", {"symbol": symbol},
+                                     server_url="https://hana.neonaibeta.com")
+        price = stock_data.get("Global Quote", {}).get("05. price")
+        if not price:
             return None
-        return str(round(float(stock_data.get("price")), 2))
+        return str(round(float(price), 2))

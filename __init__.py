@@ -106,9 +106,7 @@ class StockSkill(NeonSkill):
         """
         kwargs = {"region": self.preferred_market,
                   "company": company}
-        # TODO: Remove `server_url`
-        stocks = request_backend("/proxy/stock/symbol", kwargs,
-                                 server_url="https://hana.neonaibeta.com")
+        stocks = request_backend("/proxy/stock/symbol", kwargs)
         LOG.info(f"stocks={stocks}")
         if stocks:
             return stocks["bestMatches"][0]
@@ -122,9 +120,7 @@ class StockSkill(NeonSkill):
         :param symbol: Ticker symbol to query
         :return:
         """
-        # TODO: Remove `server_url`
-        stock_data = request_backend("/proxy/stock/quote", {"symbol": symbol},
-                                     server_url="https://hana.neonaibeta.com")
+        stock_data = request_backend("/proxy/stock/quote", {"symbol": symbol})
         price = stock_data.get("Global Quote", {}).get("05. price")
         if not price:
             return None

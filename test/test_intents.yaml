@@ -34,6 +34,13 @@ en-us:
 #    - what is the share price of apple:
 #        - company: apple
 
+common query:
+  en-us:
+    - what is amazon trading at
+    - what is alphabet share price
+    - what is the share price of apple
+    - what is the stock price for microsoft
+
 unmatched intents:
   en-us:
     - tell me about trading

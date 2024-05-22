@@ -106,12 +106,20 @@ class StockSkill(CommonQuerySkill):
         if not company:
             LOG.debug(f"no company found in {phrase}")
             return None
-        match = self._search_company(company)
+        try:
+            match = self._search_company(company)
+        except Exception as e:
+            LOG.exception(e)
+            return None
         if not match:
             LOG.info(f"not a company: {company}")
             return None
         symbol = match.get("symbol")
-        quote = self._get_stock_price(symbol)
+        try:
+            quote = self._get_stock_price(symbol)
+        except Exception as e:
+            LOG.exception(e)
+            return None
 
         response = {'symbol': symbol,
                     'company': company,

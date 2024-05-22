@@ -28,7 +28,6 @@
 
 import re
 
-from os.path import join
 from typing import Optional, Tuple
 from neon_utils.hana_utils import request_backend
 from ovos_utils import classproperty
@@ -158,9 +157,7 @@ class StockSkill(CommonQuerySkill):
 
     def _extract_company(self, utt):
         rx_file = self.find_resource('company.rx', 'regex')
-        if self.lang not in rx_file.split('/'):
-            LOG.warning(f"Resolved ")
-        LOG.info(f"Resolved: {rx_file}")
+        LOG.debug(f"Resolved: {rx_file}")
         if rx_file:
             with open(rx_file) as f:
                 for pat in f.read().splitlines():

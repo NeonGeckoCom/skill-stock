@@ -114,7 +114,8 @@ class StockSkill(CommonQuerySkill):
         if not match:
             LOG.info(f"not a company: {company}")
             return None
-        symbol = match.get("symbol")
+        company = match.get("2. name")
+        symbol = match.get("1. symbol")
         try:
             quote = self._get_stock_price(symbol)
         except Exception as e:

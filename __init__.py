@@ -145,7 +145,7 @@ class StockSkill(CommonQuerySkill):
                   "company": company}
         stocks = request_backend("/proxy/stock/symbol", kwargs)
         LOG.info(f"stocks={stocks}")
-        if stocks:
+        if stocks and stocks.get("bestMatches"):
             return stocks["bestMatches"][0]
         else:
             return None

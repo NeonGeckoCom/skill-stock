@@ -77,9 +77,11 @@ class TestSkillMethods(SkillTestCase):
         test_ms = "what is microsoft trading at"
         test_google = "what is the stock price for google"
         test_apple = "what is apple stock valued at"
+        test_amazon = "tell me about amazon stock"
         self.assertEqual(self.skill._extract_company(test_ms), "microsoft")
         self.assertEqual(self.skill._extract_company(test_google), "google")
         self.assertEqual(self.skill._extract_company(test_apple), "apple")
+        self.assertEqual(self.skill._extract_company(test_amazon), "amazon")
 
 
 if __name__ == '__main__':

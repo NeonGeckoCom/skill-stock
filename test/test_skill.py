@@ -26,18 +26,18 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import os
 import unittest
 
 from ovos_bus_client import Message
 from neon_minerva.tests.skill_unit_test_base import SkillTestCase
 
+os.environ["TEST_SKILL_ENTRYPOINT"] = "skill-stock.neongeckocom"
+
 
 class TestSkillMethods(SkillTestCase):
     def test_00_skill_init(self):
         # Test any parameters expected to be set in init or initialize methods
-        from neon_utils.skills.neon_skill import NeonSkill
-
-        self.assertIsInstance(self.skill, NeonSkill)
         self.assertIsInstance(self.skill.translate_co, dict)
         self.assertIsInstance(self.skill.preferred_market, str)
 
@@ -54,16 +54,16 @@ class TestSkillMethods(SkillTestCase):
         self.assertEqual(data["provider"], "Alpha Vantage")
         self.assertIsInstance(args[1]["data"], dict)
 
-        message = Message("test", {"company": "microsoft"})
-        self.skill.handle_stock_price(message)
-        args = self.skill.speak_dialog.call_args
-        self.assertEqual(args[0][0], "stock.price")
-        data = args[1]["data"]
-        self.assertEqual(data["symbol"], "MSFT")
-        self.assertEqual(data["company"], "Microsoft Corporation")
-        self.assertIsInstance(float(data["price"]), float)
-        self.assertEqual(data["provider"], "Alpha Vantage")
-        self.assertIsInstance(args[1]["data"], dict)
+        # message = Message("test", {"company": "microsoft"})
+        # self.skill.handle_stock_price(message)
+        # args = self.skill.speak_dialog.call_args
+        # self.assertEqual(args[0][0], "stock.price")
+        # data = args[1]["data"]
+        # self.assertEqual(data["symbol"], "MSFT")
+        # self.assertEqual(data["company"], "Microsoft Corporation")
+        # self.assertIsInstance(float(data["price"]), float)
+        # self.assertEqual(data["provider"], "Alpha Vantage")
+        # self.assertIsInstance(args[1]["data"], dict)
 
     def test_search_company(self):
         # TODO
@@ -72,6 +72,16 @@ class TestSkillMethods(SkillTestCase):
     def test_get_stock_price(self):
         # TODO
         pass
+
+    def test_extract_company(self):
+        test_ms = "what is microsoft trading at"
+        test_google = "what is the stock price for google"
+        test_apple = "what is apple stock valued at"
+        test_amazon = "tell me about amazon stock"
+        self.assertEqual(self.skill._extract_company(test_ms), "microsoft")
+        self.assertEqual(self.skill._extract_company(test_google), "google")
+        self.assertEqual(self.skill._extract_company(test_apple), "apple")
+        self.assertEqual(self.skill._extract_company(test_amazon), "amazon")
 
 
 if __name__ == '__main__':

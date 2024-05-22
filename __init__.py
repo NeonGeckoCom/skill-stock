@@ -26,18 +26,21 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from typing import Optional
-from neon_utils.skills.neon_skill import NeonSkill
+import re
+
+from os.path import join
+from typing import Optional, Tuple
 from neon_utils.hana_utils import request_backend
 from ovos_utils import classproperty
 from ovos_utils.log import LOG
 from ovos_utils.process_utils import RuntimeRequirements
 from ovos_workshop.decorators import intent_handler
+from ovos_workshop.skills.common_query_skill import CommonQuerySkill, CQSMatchLevel
 
 
-class StockSkill(NeonSkill):
+class StockSkill(CommonQuerySkill):
     def __init__(self, **kwargs):
-        NeonSkill.__init__(self, **kwargs)
+        CommonQuerySkill.__init__(self, **kwargs)
         self.preferred_market = "United States"
         self.translate_co = {"3 m": "mmm",
                              "3m": "mmm",
@@ -98,6 +101,33 @@ class StockSkill(NeonSkill):
             LOG.exception(e)
             self.speak_dialog("not.found", data={'company': company})
 
+    def CQS_match_query_phrase(self, phrase: str) -> \
+            Optional[Tuple[str, CQSMatchLevel, Optional[dict]]]:
+        company = self._extract_company(phrase)
+        if not company:
+            LOG.debug(f"no company found in {phrase}")
+            return None
+        match = self._search_company(company)
+        if not match:
+            LOG.info(f"not a company: {company}")
+            return None
+        symbol = match.get("symbol")
+        quote = self._get_stock_price(symbol)
+
+        response = {'symbol': symbol,
+                    'company': company,
+                    'price': quote,
+                    'provider': "Alpha Vantage"}
+        dialog = self.dialog_renderer.render("stock.price",
+                                             response)
+        callback_data = {"company": company, "quote": quote, "answer": dialog}
+        return phrase, CQSMatchLevel.EXACT, callback_data
+
+    def CQS_action(self, phrase: str, callback_data: dict):
+        self.gui["title"] = callback_data.get("company")
+        self.gui["text"] = f"${callback_data.get('quote')}"
+        self.gui.show_page("Stock")
+
     def _search_company(self, company: str) -> Optional[dict]:
         """
         Find a traded company by name
@@ -125,3 +155,22 @@ class StockSkill(NeonSkill):
         if not price:
             return None
         return str(round(float(price), 2))
+
+    def _extract_company(self, utt):
+        rx_file = self.find_resource('company.rx', 'regex')
+        if self.lang not in rx_file.split('/'):
+            LOG.warning(f"Resolved ")
+        LOG.info(f"Resolved: {rx_file}")
+        if rx_file:
+            with open(rx_file) as f:
+                for pat in f.read().splitlines():
+                    pat = pat.strip()
+                    if pat and pat[0] == "#":
+                        continue
+                    res = re.search(pat, utt)
+                    if res:
+                        try:
+                            return res.group("Company")
+                        except IndexError:
+                            pass
+        return None

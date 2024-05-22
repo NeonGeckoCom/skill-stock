@@ -23,16 +23,16 @@
 
 en-us:
   stock_price.intent:
-    - what is amazon trading at:
-        - company: amazon
+#    - what is amazon trading at:
+#        - company: amazon
     - i want to know the share price for microsoft:
         - company: microsoft
     - tell me what tesla is trading at:
         - company: tesla
-    - what is alphabet share price:
-        - company: alphabet
-    - what is the share price of apple:
-        - company: apple
+#    - what is alphabet share price:
+#        - company: alphabet
+#    - what is the share price of apple:
+#        - company: apple
 
 unmatched intents:
   en-us:

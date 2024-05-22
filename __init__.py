@@ -129,7 +129,7 @@ class StockSkill(CommonQuerySkill):
         dialog = self.dialog_renderer.render("stock.price",
                                              response)
         callback_data = {"company": company, "quote": quote, "answer": dialog}
-        return phrase, CQSMatchLevel.EXACT, callback_data
+        return phrase, CQSMatchLevel.EXACT, dialog, callback_data
 
     def CQS_action(self, phrase: str, callback_data: dict):
         self.gui["title"] = callback_data.get("company")

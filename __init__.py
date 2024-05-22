@@ -100,8 +100,7 @@ class StockSkill(CommonQuerySkill):
             LOG.exception(e)
             self.speak_dialog("not.found", data={'company': company})
 
-    def CQS_match_query_phrase(self, phrase: str) -> \
-            Optional[Tuple[str, CQSMatchLevel, Optional[dict]]]:
+    def CQS_match_query_phrase(self, phrase: str):
         company = self._extract_company(phrase)
         if not company:
             LOG.debug(f"no company found in {phrase}")

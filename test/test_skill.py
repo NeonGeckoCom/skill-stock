@@ -36,11 +36,6 @@ os.environ["TEST_SKILL_ENTRYPOINT"] = "skill-stock.neongeckocom"
 
 
 class TestSkillMethods(SkillTestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        from neon_utils.hana_utils import set_default_backend_url
-        set_default_backend_url("https://hana.neonaialpha.com")
-
     def test_00_skill_init(self):
         # Test any parameters expected to be set in init or initialize methods
         self.assertIsInstance(self.skill.translate_co, dict)

@@ -28,7 +28,7 @@
 
 import re
 
-from typing import Optional, Tuple
+from typing import Optional
 from neon_utils.hana_utils import request_backend
 from ovos_utils import classproperty
 from ovos_utils.log import LOG

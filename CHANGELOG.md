@@ -1,45 +1,72 @@
 # Changelog
 
-## [0.3.1a6](https://github.com/NeonGeckoCom/skill-stock/tree/0.3.1a6) (2023-06-28)
+## [1.0.1a8](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a8) (2025-03-19)
 
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/0.3.1a5...0.3.1a6)
-
-**Merged pull requests:**
-
-- Stable dependencies [\#46](https://github.com/NeonGeckoCom/skill-stock/pull/46) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [0.3.1a5](https://github.com/NeonGeckoCom/skill-stock/tree/0.3.1a5) (2023-06-23)
-
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/0.3.1a4...0.3.1a5)
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a7...1.0.1a8)
 
 **Merged pull requests:**
 
-- Fix whitespace typo in "share price" intent with added test case [\#40](https://github.com/NeonGeckoCom/skill-stock/pull/40) ([NeonDaniel](https://github.com/NeonDaniel))
+- Update to stable dependency versions [\#56](https://github.com/NeonGeckoCom/skill-stock/pull/56) ([NeonDaniel](https://github.com/NeonDaniel))
 
-## [0.3.1a4](https://github.com/NeonGeckoCom/skill-stock/tree/0.3.1a4) (2023-06-23)
+## [1.0.1a7](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a7) (2025-03-11)
 
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/0.3.1a3...0.3.1a4)
-
-**Merged pull requests:**
-
-- Resolve logged exceptions [\#45](https://github.com/NeonGeckoCom/skill-stock/pull/45) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [0.3.1a3](https://github.com/NeonGeckoCom/skill-stock/tree/0.3.1a3) (2023-06-15)
-
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/0.3.1a2...0.3.1a3)
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a6...1.0.1a7)
 
 **Merged pull requests:**
 
-- Update to resolve warnings [\#44](https://github.com/NeonGeckoCom/skill-stock/pull/44) ([NeonDaniel](https://github.com/NeonDaniel))
+- Update automation, gitignore, and license notices [\#55](https://github.com/NeonGeckoCom/skill-stock/pull/55) ([NeonDaniel](https://github.com/NeonDaniel))
 
-## [0.3.1a2](https://github.com/NeonGeckoCom/skill-stock/tree/0.3.1a2) (2023-06-14)
+## [1.0.1a6](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a6) (2024-09-17)
 
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/0.3.0...0.3.1a2)
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a5...1.0.1a6)
 
 **Merged pull requests:**
 
-- Update GH automation to best practices [\#43](https://github.com/NeonGeckoCom/skill-stock/pull/43) ([NeonDaniel](https://github.com/NeonDaniel))
-- Refactor mycroft-messagebus-client to ovos-bus-client [\#41](https://github.com/NeonGeckoCom/skill-stock/pull/41) ([NeonDaniel](https://github.com/NeonDaniel))
+- Update OVOS depdendencies for 0.x compat [\#54](https://github.com/NeonGeckoCom/skill-stock/pull/54) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [1.0.1a5](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a5) (2024-05-22)
+
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a4...1.0.1a5)
+
+**Fixed bugs:**
+
+- Update to extend CommonQuery [\#18](https://github.com/NeonGeckoCom/skill-stock/issues/18)
+
+**Merged pull requests:**
+
+- Extend CommonQuerySkill [\#53](https://github.com/NeonGeckoCom/skill-stock/pull/53) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [1.0.1a4](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a4) (2024-05-06)
+
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a3...1.0.1a4)
+
+**Merged pull requests:**
+
+- Remove hard-coded HANA URL [\#51](https://github.com/NeonGeckoCom/skill-stock/pull/51) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [1.0.1a3](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a3) (2024-04-09)
+
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a2...1.0.1a3)
+
+**Merged pull requests:**
+
+- Update skill to use HANA and update imports [\#50](https://github.com/NeonGeckoCom/skill-stock/pull/50) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [1.0.1a2](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a2) (2024-04-02)
+
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a1...1.0.1a2)
+
+**Merged pull requests:**
+
+- Update test dependency to stable spec [\#49](https://github.com/NeonGeckoCom/skill-stock/pull/49) ([NeonDaniel](https://github.com/NeonDaniel))
+
+## [1.0.1a1](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a1) (2024-02-05)
+
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.0...1.0.1a1)
+
+**Merged pull requests:**
+
+- Support ovos-utils 0.1 [\#48](https://github.com/NeonGeckoCom/skill-stock/pull/48) ([NeonDaniel](https://github.com/NeonDaniel))
 
 
 

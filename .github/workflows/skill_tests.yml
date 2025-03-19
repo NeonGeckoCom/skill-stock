@@ -14,8 +14,7 @@ jobs:
     uses: neongeckocom/.github/.github/workflows/skill_test_intents.yml@master
     with:
       test_padacioso: True
-      test_padatious: False
-    # These intents often fail with Padatious
+      test_padatious: True
   skill_resource_tests:
     uses: neongeckocom/.github/.github/workflows/skill_test_resources.yml@master
   skill_install_tests:

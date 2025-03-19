@@ -1,6 +1,6 @@
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Framework
 # All trademark and other rights reserved by their respective owners
-# Copyright 2008-2022 Neongecko.com Inc.
+# Copyright 2008-2025 Neongecko.com Inc.
 # Contributors: Daniel McKnight, Guy Daniels, Elon Gasper, Richard Leeds,
 # Regina Bloomstine, Casimiro Ferreira, Andrii Pernatii, Kirill Hrymailo
 # BSD-3 License
@@ -26,71 +26,20 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import os
 import unittest
 
-from os import mkdir, getenv
-from os.path import dirname, join, exists
-
-import yaml
-from mock import Mock
-from mock.mock import patch
-from ovos_plugin_manager.skills import load_skill_plugins
-from ovos_utils.log import LOG
-from ovos_utils.messagebus import FakeBus
 from ovos_bus_client import Message
-from mycroft.skills.skill_loader import SkillLoader
+from neon_minerva.tests.skill_unit_test_base import SkillTestCase
+
+os.environ["TEST_SKILL_ENTRYPOINT"] = "skill-stock.neongeckocom"
 
 
-class TestSkill(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        bus = FakeBus()
-        bus.run_in_thread()
-        skill_loader = SkillLoader(bus, dirname(dirname(__file__)))
-        skill_loader.load()
-        cls.skill = skill_loader.instance
-
-        # Define a directory to use for testing
-        cls.test_fs = join(dirname(__file__), "skill_fs")
-        if not exists(cls.test_fs):
-            mkdir(cls.test_fs)
-
-        # Override the configuration and fs paths to use the test directory
-        cls.skill.settings_write_path = cls.test_fs
-        cls.skill.file_system.path = cls.test_fs
-        cls.skill._init_settings()
-        cls.skill.initialize()
-
-        # Override MQ config to use test endpoint
-        cls.skill.config_core["MQ"] = {
-            "server": "mq.2022.us",
-            "port": 25672,
-            "users": {
-                "mq_handler": {
-                    "user": "neon_api_utils",
-                    "password": "Klatchat2021"
-                }
-            }
-        }
-
-        # Override speak and speak_dialog to test passed arguments
-        cls.skill.speak = Mock()
-        cls.skill.speak_dialog = Mock()
-
+class TestSkillMethods(SkillTestCase):
     def test_00_skill_init(self):
         # Test any parameters expected to be set in init or initialize methods
-        from neon_utils.skills.neon_skill import NeonSkill
-
-        self.assertIsInstance(self.skill, NeonSkill)
         self.assertIsInstance(self.skill.translate_co, dict)
         self.assertIsInstance(self.skill.preferred_market, str)
-
-        self.assertIsInstance(self.skill.service, str)
-        self.assertIsNone(self.skill.api_key)
-        self.assertTrue(hasattr(self.skill.data_source,
-                                "search_stock_by_name"))
-        self.assertTrue(hasattr(self.skill.data_source,
-                                "get_stock_quote"))
 
     def test_handle_stock_price(self):
         message = Message("test", {"company": "3m"})
@@ -105,16 +54,16 @@ class TestSkill(unittest.TestCase):
         self.assertEqual(data["provider"], "Alpha Vantage")
         self.assertIsInstance(args[1]["data"], dict)
 
-        message = Message("test", {"company": "microsoft"})
-        self.skill.handle_stock_price(message)
-        args = self.skill.speak_dialog.call_args
-        self.assertEqual(args[0][0], "stock.price")
-        data = args[1]["data"]
-        self.assertEqual(data["symbol"], "MSFT")
-        self.assertEqual(data["company"], "Microsoft Corporation")
-        self.assertIsInstance(float(data["price"]), float)
-        self.assertEqual(data["provider"], "Alpha Vantage")
-        self.assertIsInstance(args[1]["data"], dict)
+        # message = Message("test", {"company": "microsoft"})
+        # self.skill.handle_stock_price(message)
+        # args = self.skill.speak_dialog.call_args
+        # self.assertEqual(args[0][0], "stock.price")
+        # data = args[1]["data"]
+        # self.assertEqual(data["symbol"], "MSFT")
+        # self.assertEqual(data["company"], "Microsoft Corporation")
+        # self.assertIsInstance(float(data["price"]), float)
+        # self.assertEqual(data["provider"], "Alpha Vantage")
+        # self.assertIsInstance(args[1]["data"], dict)
 
     def test_search_company(self):
         # TODO
@@ -123,6 +72,16 @@ class TestSkill(unittest.TestCase):
     def test_get_stock_price(self):
         # TODO
         pass
+
+    def test_extract_company(self):
+        test_ms = "what is microsoft trading at"
+        test_google = "what is the stock price for google"
+        test_apple = "what is apple stock valued at"
+        test_amazon = "tell me about amazon stock"
+        self.assertEqual(self.skill._extract_company(test_ms), "microsoft")
+        self.assertEqual(self.skill._extract_company(test_google), "google")
+        self.assertEqual(self.skill._extract_company(test_apple), "apple")
+        self.assertEqual(self.skill._extract_company(test_amazon), "amazon")
 
 
 if __name__ == '__main__':

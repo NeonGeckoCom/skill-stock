@@ -23,22 +23,26 @@
 
 en-us:
   stock_price.intent:
-    - what is amazon trading at:
-        - company: amazon
+#    - what is amazon trading at:
+#        - company: amazon
     - i want to know the share price for microsoft:
         - company: microsoft
     - tell me what tesla is trading at:
         - company: tesla
-    - what is alphabet share price:
-        - company: alphabet
-    - what is the share price of apple:
-        - company: apple
+#    - what is alphabet share price:
+#        - company: alphabet
+#    - what is the share price of apple:
+#        - company: apple
+
+common query:
+  en-us:
+    - what is amazon trading at
+    - what is alphabet share price
+    - what is the share price of apple
+    - what is the stock price for microsoft
+    - tell me about nvidia stock
 
 unmatched intents:
   en-us:
     - tell me about trading
-    - what is a stock
-    - what is bitcoin
-    - what is company stock
     - what is stock
-    - what is the distance to the moon

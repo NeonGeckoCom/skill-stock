@@ -18,6 +18,8 @@ jobs:
       skill_entrypoint: skill-stock.neongeckocom
   skill_resource_tests:
     uses: neongeckocom/.github/.github/workflows/skill_test_resources.yml@master
+    with:
+      skill_entrypoint: skill-stock.neongeckocom
   skill_install_tests:
     uses: neongeckocom/.github/.github/workflows/skill_test_installation.yml@master
     with:

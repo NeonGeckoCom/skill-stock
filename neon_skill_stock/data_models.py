@@ -44,7 +44,7 @@ class StockPriceInfo(BaseModel):
     previous_close: float = Field(description="Previous day closing price")
     change: float = Field(description="Change since previous close")
     change_percent: str = Field(description="Change percent since previous close")
-    provider: str = Field(description="Data provider")
+    provider: str = Field(default="Alpha Vantage", description="Data provider")
 
     @model_validator(mode="before")
     def parse_global_quote(cls, data):
@@ -52,5 +52,9 @@ class StockPriceInfo(BaseModel):
             data = data["Global Quote"]
         new_data = {}
         for key, val in data.items():
-            new_data[key.split(". ")[1].replace(' ', '_')] = val
+            if len(key.split(". ")) > 1:
+                new_data[key.split(". ")[1].replace(' ', '_')] = val
+            else:
+                # "Normal" response data, don't try to parse as AlphaVantage
+                new_data[key] = val
         return new_data

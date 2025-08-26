@@ -31,7 +31,9 @@ import unittest
 
 from ovos_bus_client import Message
 from neon_minerva.tests.skill_unit_test_base import SkillTestCase
+from mock import patch
 
+from neon_skill_stock.data_models import StockPriceInfo
 os.environ["TEST_SKILL_ENTRYPOINT"] = "skill-stock.neongeckocom"
 
 
@@ -69,10 +71,6 @@ class TestSkillMethods(SkillTestCase):
         # TODO
         pass
 
-    def test_get_stock_price(self):
-        # TODO
-        pass
-
     def test_extract_company(self):
         test_ms = "what is microsoft trading at"
         test_google = "what is the stock price for google"
@@ -82,6 +80,29 @@ class TestSkillMethods(SkillTestCase):
         self.assertEqual(self.skill._extract_company(test_google), "google")
         self.assertEqual(self.skill._extract_company(test_apple), "apple")
         self.assertEqual(self.skill._extract_company(test_amazon), "amazon")
+
+    @patch("neon_skill_stock.request_backend")
+    def test_get_stock_price(self, request_backend):
+        request_backend.return_value = {
+            "Global Quote": {
+                "01. symbol": "TEST",
+                "02. open": "145.6600",
+                "03. high": "147.4700",
+                "04. low": "145.1900",
+                "05. price": "146.9200",
+                "06. volume": "72398800",
+                "07. latest trading day": "2023-07-21",
+                "08. previous close": "145.3800",
+                "09. change": "1.5400",
+                "10. change percent": "1.0592%",
+            }
+        }
+        
+        price_data = self.skill.get_stock_price("TEST")
+        self.assertIsInstance(price_data, StockPriceInfo)
+        self.assertEqual(price_data.symbol, "TEST")
+        self.assertEqual(price_data.price, 146.92)
+        self.assertEqual(price_data["provider"], "Alpha Vantage")
 
 
 if __name__ == '__main__':

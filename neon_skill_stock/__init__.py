@@ -29,11 +29,12 @@
 import re
 
 from typing import Optional
+from neon_skill_stock.data_models import StockPriceRequest, StockPriceInfo
 from neon_utils.hana_utils import request_backend
 from ovos_utils import classproperty
 from ovos_utils.log import LOG
 from ovos_utils.process_utils import RuntimeRequirements
-from ovos_workshop.decorators import intent_handler
+from ovos_workshop.decorators import intent_handler, skill_api_method
 from ovos_workshop.skills.common_query_skill import CommonQuerySkill, CQSMatchLevel
 
 
@@ -59,6 +60,15 @@ class StockSkill(CommonQuerySkill):
                                    no_internet_fallback=False,
                                    no_network_fallback=False,
                                    no_gui_fallback=True)
+
+    @skill_api_method
+    def get_stock_price(self, request: StockPriceRequest) -> StockPriceInfo:
+        """
+        Get the current stock price information for a given ticker symbol.
+        """
+        stock_data = request_backend("/proxy/stock/quote",
+                                     {"symbol": request.symbol})
+        return StockPriceInfo(**stock_data)
 
     @intent_handler("stock_price.intent")
     def handle_stock_price(self, message):
@@ -179,3 +189,4 @@ class StockSkill(CommonQuerySkill):
                         except IndexError:
                             pass
         return None
+

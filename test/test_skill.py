@@ -33,7 +33,7 @@ from ovos_bus_client import Message
 from neon_minerva.tests.skill_unit_test_base import SkillTestCase
 from mock import patch
 
-from neon_skill_stock.data_models import StockPriceInfo
+from neon_skill_stock.data_models import StockPriceInfo, StockPriceRequest
 os.environ["TEST_SKILL_ENTRYPOINT"] = "skill-stock.neongeckocom"
 
 
@@ -98,11 +98,12 @@ class TestSkillMethods(SkillTestCase):
             }
         }
         
-        price_data = self.skill.get_stock_price("TEST")
+        price_data = self.skill.get_stock_price(StockPriceRequest(symbol="TEST"))
+        request_backend.assert_called_once_with("/proxy/stock/quote", {"symbol": "TEST"})
         self.assertIsInstance(price_data, StockPriceInfo)
         self.assertEqual(price_data.symbol, "TEST")
         self.assertEqual(price_data.price, 146.92)
-        self.assertEqual(price_data["provider"], "Alpha Vantage")
+        self.assertEqual(price_data.provider, "Alpha Vantage")
 
 
 if __name__ == '__main__':

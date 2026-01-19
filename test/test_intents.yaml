@@ -50,8 +50,8 @@ common query:
     - what is the stock price for microsoft
     - tell me about nvidia stock
   uk-ua:
-    - яка вартість акцій amazon
-    - який курс акцій alphabet
+    - яка вартість акцій microsoft
+    - який курс акцій microsoft
 
 unmatched intents:
   en-us:

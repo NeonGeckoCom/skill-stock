@@ -119,6 +119,11 @@ class StockSkill(CommonQuerySkill):
         if not company:
             LOG.debug(f"no company found in {phrase}")
             return None
+        company = company.lower().strip()
+        # Special case for common stocks that don't match accurately
+        if company in self.translate_co:
+            LOG.info(f"{company} in {self.translate_co}")
+            company = self.translate_co[company]
         try:
             match = self._search_company(company)
         except Exception as e:

@@ -50,6 +50,7 @@ common query:
     - what is the stock price for microsoft
     - tell me about nvidia stock
   uk-ua:
+    - я хочу знати ціну акцій для microsoft
     - який курс акцій microsoft
     - яка вартість акцій гугл
     - який курс акцій кока кола

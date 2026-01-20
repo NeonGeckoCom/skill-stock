@@ -116,6 +116,7 @@ class StockSkill(CommonQuerySkill):
 
     def CQS_match_query_phrase(self, phrase: str):
         company = self._extract_company(phrase)
+        LOG.info(company)
         if not company:
             LOG.debug(f"no company found in {phrase}")
             return None

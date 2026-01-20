@@ -180,7 +180,7 @@ class StockSkill(CommonQuerySkill):
 
     def _extract_company(self, utt):
         rx_file = self.find_resource('company.rx', 'regex')
-        LOG.debug(f"Resolved: {rx_file}")
+        LOG.info(f"Resolved: {rx_file}")
         if rx_file:
             with open(rx_file) as f:
                 for pat in f.read().splitlines():

@@ -121,6 +121,7 @@ class StockSkill(CommonQuerySkill):
             LOG.debug(f"no company found in {phrase}")
             return None
         try:
+            company = self.translate_co.get(company.lower(), company)
             match = self._search_company(company)
         except Exception as e:
             LOG.exception(e)

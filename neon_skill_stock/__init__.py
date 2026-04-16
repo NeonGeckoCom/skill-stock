@@ -47,7 +47,11 @@ class StockSkill(CommonQuerySkill):
                              "coca cola": "ko",
                              "coca-cola": "ko",
                              "google": "goog",
-                             "exxonmobil": "xom"}
+                             "exxonmobil": "xom",
+                             "ммм": "mmm",
+                             "кока кола": "ko",
+                             "кокакола": "ko",
+                             "гугл": "goog"}
 
     @classproperty
     def runtime_requirements(self):
@@ -112,10 +116,12 @@ class StockSkill(CommonQuerySkill):
 
     def CQS_match_query_phrase(self, phrase: str):
         company = self._extract_company(phrase)
+        LOG.info(company)
         if not company:
             LOG.debug(f"no company found in {phrase}")
             return None
         try:
+            company = self.translate_co.get(company.lower(), company)
             match = self._search_company(company)
         except Exception as e:
             LOG.exception(e)
@@ -175,7 +181,7 @@ class StockSkill(CommonQuerySkill):
 
     def _extract_company(self, utt):
         rx_file = self.find_resource('company.rx', 'regex')
-        LOG.debug(f"Resolved: {rx_file}")
+        LOG.info(f"Resolved: {rx_file}")
         if rx_file:
             with open(rx_file) as f:
                 for pat in f.read().splitlines():

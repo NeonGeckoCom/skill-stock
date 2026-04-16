@@ -34,6 +34,14 @@ en-us:
 #    - what is the share price of apple:
 #        - company: apple
 
+uk-ua:
+  stock_price.intent:
+    - я хочу знати ціну акцій для microsoft:
+        - company: microsoft
+    - скажи мені за якою ціною торгується tesla:
+        - company: tesla
+    - яка вартість акцій apple:
+        - company: apple
 common query:
   en-us:
     - what is amazon trading at
@@ -41,6 +49,12 @@ common query:
     - what is the share price of apple
     - what is the stock price for microsoft
     - tell me about nvidia stock
+  uk-ua:
+    - я хочу знати ціну акцій для microsoft
+    - я хочу знати ціну акцій для гугл
+    - який курс акцій microsoft
+    - яка вартість акцій гугл
+    - який курс акцій кока кола
 
 unmatched intents:
   en-us:

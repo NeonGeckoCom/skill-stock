@@ -26,4 +26,35 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-__version__ = "3.0.0"
+from pydantic import BaseModel, Field, model_validator
+
+
+class StockPriceRequest(BaseModel):
+    symbol: str = Field(description="Symbol to look up")
+
+
+class StockPriceInfo(BaseModel):
+    symbol: str = Field(description="Stock symbol")
+    open: float = Field(description="Day opening price")
+    high: float = Field(description="Day highest price")
+    low: float = Field(description="Day lowest price")
+    price: float = Field(description="Current price")
+    volume: int = Field(description="Current share volume")
+    latest_trading_day: str = Field(description="Date of latest trading day")
+    previous_close: float = Field(description="Previous day closing price")
+    change: float = Field(description="Change since previous close")
+    change_percent: str = Field(description="Change percent since previous close")
+    provider: str = Field(default="Alpha Vantage", description="Data provider")
+
+    @model_validator(mode="before")
+    def parse_global_quote(cls, data):
+        if "Global Quote" in data:
+            data = data["Global Quote"]
+        new_data = {}
+        for key, val in data.items():
+            if len(key.split(". ")) > 1:
+                new_data[key.split(". ")[1].replace(' ', '_')] = val
+            else:
+                # "Normal" response data, don't try to parse as AlphaVantage
+                new_data[key] = val
+        return new_data

@@ -1,72 +1,36 @@
 # Changelog
 
-## [1.0.1a8](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a8) (2025-03-19)
+## [2.0.1a4](https://github.com/NeonGeckoCom/skill-stock/tree/2.0.1a4) (2026-06-26)
 
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a7...1.0.1a8)
-
-**Merged pull requests:**
-
-- Update to stable dependency versions [\#56](https://github.com/NeonGeckoCom/skill-stock/pull/56) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [1.0.1a7](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a7) (2025-03-11)
-
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a6...1.0.1a7)
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/2.0.1a3...2.0.1a4)
 
 **Merged pull requests:**
 
-- Update automation, gitignore, and license notices [\#55](https://github.com/NeonGeckoCom/skill-stock/pull/55) ([NeonDaniel](https://github.com/NeonDaniel))
+- Update dependencies to stable specs [\#63](https://github.com/NeonGeckoCom/skill-stock/pull/63) ([NeonDaniel](https://github.com/NeonDaniel))
 
-## [1.0.1a6](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a6) (2024-09-17)
+## [2.0.1a3](https://github.com/NeonGeckoCom/skill-stock/tree/2.0.1a3) (2026-04-16)
 
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a5...1.0.1a6)
-
-**Merged pull requests:**
-
-- Update OVOS depdendencies for 0.x compat [\#54](https://github.com/NeonGeckoCom/skill-stock/pull/54) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [1.0.1a5](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a5) (2024-05-22)
-
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a4...1.0.1a5)
-
-**Fixed bugs:**
-
-- Update to extend CommonQuery [\#18](https://github.com/NeonGeckoCom/skill-stock/issues/18)
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/2.0.1a2...2.0.1a3)
 
 **Merged pull requests:**
 
-- Extend CommonQuerySkill [\#53](https://github.com/NeonGeckoCom/skill-stock/pull/53) ([NeonDaniel](https://github.com/NeonDaniel))
+- Ukrainian Translation [\#61](https://github.com/NeonGeckoCom/skill-stock/pull/61) ([NeonDaniel](https://github.com/NeonDaniel))
 
-## [1.0.1a4](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a4) (2024-05-06)
+## [2.0.1a2](https://github.com/NeonGeckoCom/skill-stock/tree/2.0.1a2) (2025-08-26)
 
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a3...1.0.1a4)
-
-**Merged pull requests:**
-
-- Remove hard-coded HANA URL [\#51](https://github.com/NeonGeckoCom/skill-stock/pull/51) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [1.0.1a3](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a3) (2024-04-09)
-
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a2...1.0.1a3)
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/2.0.1a1...2.0.1a2)
 
 **Merged pull requests:**
 
-- Update skill to use HANA and update imports [\#50](https://github.com/NeonGeckoCom/skill-stock/pull/50) ([NeonDaniel](https://github.com/NeonDaniel))
+- Implement Skill API endpoint [\#60](https://github.com/NeonGeckoCom/skill-stock/pull/60) ([NeonDaniel](https://github.com/NeonDaniel))
 
-## [1.0.1a2](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a2) (2024-04-02)
+## [2.0.1a1](https://github.com/NeonGeckoCom/skill-stock/tree/2.0.1a1) (2025-08-25)
 
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.1a1...1.0.1a2)
-
-**Merged pull requests:**
-
-- Update test dependency to stable spec [\#49](https://github.com/NeonGeckoCom/skill-stock/pull/49) ([NeonDaniel](https://github.com/NeonDaniel))
-
-## [1.0.1a1](https://github.com/NeonGeckoCom/skill-stock/tree/1.0.1a1) (2024-02-05)
-
-[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/1.0.0...1.0.1a1)
+[Full Changelog](https://github.com/NeonGeckoCom/skill-stock/compare/2.0.0...2.0.1a1)
 
 **Merged pull requests:**
 
-- Support ovos-utils 0.1 [\#48](https://github.com/NeonGeckoCom/skill-stock/pull/48) ([NeonDaniel](https://github.com/NeonDaniel))
+- Refactor into a Python package [\#59](https://github.com/NeonGeckoCom/skill-stock/pull/59) ([NeonDaniel](https://github.com/NeonDaniel))
 
 
 
